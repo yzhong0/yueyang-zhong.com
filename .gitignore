@@ -1,1 +1,7 @@
 node_modules/
+
+# Manuscripts marked "available upon request" in the CV. These are inputs for writing
+# abstracts, not publishable files. This repo is public and deploys to GitHub Pages,
+# so anything committed here is world-readable.
+papers/
+_originals/
