@@ -491,6 +491,9 @@ summary:hover{background:var(--c-bg-sunk)}
 .band .lede{max-width:var(--measure);margin-top:var(--space-m);
  color:var(--c-band-ink);font-size:var(--t-body)}
 .band .lede a{color:var(--c-band-accent);text-underline-offset:.15em}
+/* The bio lede beside the portrait: "slightly narrower" than the full measure
+   (review round 5), so 82ch against the 93ch used everywhere else. */
+.herogrid>.lede{max-width:82ch}
 
 main{display:block}
 .page{padding:var(--space-xl) 0 var(--space-3xl);max-width:var(--page-max);
@@ -567,8 +570,18 @@ main{display:block}
 .band .herogrid h1{margin-top:var(--space-3xs)}
 .band .affil{margin-top:var(--space-2xs);font-size:var(--t-body);
  color:var(--c-band-ink)}
-.band .identity{max-width:var(--measure);margin-top:var(--space-m);
- color:var(--c-band-muted)}
+/* "Exactly as wide as the affiliation line" (review round 5). A block sized to
+   its max-content is as wide as its widest unbreakable line; a child set to
+   width:0 contributes nothing to that measurement and then min-width:100%
+   stretches it back to the block. So the statement (and the button row and
+   the contact lines under it) take the affiliation's width, and nothing is
+   hard-coded. max-width:100% keeps the block inside its column on phones,
+   where the affiliation itself wraps. Same trick as .fitkicker on /teaching/. */
+.herotext{width:max-content;max-width:100%}
+.herotext>:not(h1):not(.affil){width:0;min-width:100%}
+.band .identity{margin-top:var(--space-m);color:var(--c-band-muted)}
+.fitkicker{width:max-content;max-width:100%}
+.fitkicker>.lede{width:0;min-width:100%}
 
 /* The portrait is a 5:4 landscape frame shown in a portrait slot. object-fit
    crops the sides rather than the top of the head, and object-position nudges
@@ -585,7 +598,7 @@ main{display:block}
 /* B5. Button row. Four identical outlined buttons since 2026-09-22 (author
    ruling): no dominant action, no filled button anywhere on the site. */
 .actions{display:flex;flex-wrap:wrap;gap:var(--space-2xs) var(--space-s);
- margin-top:var(--space-l)}
+ margin-top:var(--space-m)}
 .actions a{display:inline-flex;align-items:center;gap:.4em;
  font-size:var(--t-meta);font-family:var(--font-meta);text-decoration:none;
  padding:.5em .9em;border-radius:var(--radius);
