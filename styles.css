@@ -465,12 +465,23 @@ summary::before{content:"";width:.45em;height:.45em;border-right:2px solid
  translate(-1px,-1px);transition:transform var(--motion-fast) var(--ease-out)}
 details[open] summary::before{transform:rotate(-135deg) translate(-2px,-2px)}
 summary:hover{background:var(--c-bg-sunk)}
+/* No max-width since review round 7: the summary box spans the entry, like
+   the title and byline above it, instead of stopping at 93 small characters. */
 .t2-body{margin-top:var(--space-2xs);padding:var(--space-s);
- background:var(--c-bg);border-left:var(--border-emphasis) solid var(--c-rule);
- max-width:var(--measure)}
+ background:var(--c-bg);border-left:var(--border-emphasis) solid var(--c-rule)}
 /* For 16 of 22 entries this is now the only prose on the page, not
    supplementary detail, because the one-line summary above it is gone. */
 .precis{font-size:var(--t-small);line-height:1.62}
+
+/* Justified prose (review round 7, 2026-09-22). The author asked for these
+   six blocks, and only these, to be set flush left AND right: the research
+   statement, the Topics texts, every paper summary, the home hooks, the
+   course descriptions and the bio lede. Headings, bylines, status lines,
+   lists of links and the mono metadata stay ragged. hyphens:auto is what
+   makes justification safe at 93ch: without it a long word forces a river
+   of white across the line. <html lang="en"> is what lets it work. */
+.band .overview,.topics .ttext,.precis,.picks .hook,.course p:last-child,
+.herogrid>.lede{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
 
 .entry:target{background:var(--c-target-tint)}
 .entry:target::before{background:var(--c-accent);width:4px}
@@ -641,8 +652,10 @@ main{display:block}
 .picks h3 a{text-decoration:none;text-underline-offset:.15em}
 .picks h3 a:hover{color:var(--c-accent);text-decoration:underline}
 .picks .statusline{margin-top:var(--space-3xs)}
-.picks .hook{margin-top:var(--space-2xs);font-size:var(--t-small);
- max-width:var(--measure)}
+/* No max-width on the hook (review round 7): at the small size, 93ch came out
+   narrower than the title above it, which is what the author saw. The card
+   bounds it now, so the hook is exactly as wide as the title. */
+.picks .hook{margin-top:var(--space-2xs);font-size:var(--t-small)}
 .morelink{margin-top:var(--space-s);font-family:var(--font-meta);
  font-size:var(--t-meta)}
 .morelink a{color:var(--c-accent);text-underline-offset:.15em}
