@@ -557,9 +557,14 @@ main{display:block}
 /* B4. Home hero. Text first in the DOM so the name is the first thing read on
    a phone and the first thing a screen reader reaches; the portrait floats to
    the right only once there is room for it. */
-.herogrid{display:grid;gap:var(--space-l);align-items:start}
+/* minmax(0,1fr) at EVERY width, not just the two-column one: an `auto` grid
+   column sizes itself to a max-content child, so .herotext's max-width:100%
+   would resolve against a column that had already grown past the phone, and
+   the hero ran off the right edge at 390px (caught in review round 6). */
+.herogrid{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--space-l);
+ align-items:start}
 @media (min-width:52rem){
-  .herogrid{grid-template-columns:minmax(0,1fr) 13rem;gap:var(--space-2xl);
+  .herogrid{grid-template-columns:minmax(0,1fr) 17rem;gap:var(--space-2xl);
    align-items:start}
   /* Home only (the portrait follows the text <div>; on /bio/ it follows the
      lede <p>). The author asked for the top of the picture to line up with
@@ -583,17 +588,18 @@ main{display:block}
 .fitkicker{width:max-content;max-width:100%}
 .fitkicker>.lede{width:0;min-width:100%}
 
-/* The portrait is a 5:4 landscape frame shown in a portrait slot. object-fit
-   crops the sides rather than the top of the head, and object-position nudges
-   the face off dead centre; a hard crop baked into the file would be one
-   irreversible guess about framing. */
-.portrait{display:block;width:7.5rem;border-radius:var(--radius);
+/* The portrait is a 5:4 landscape frame shown in a SQUARE slot (review round 6,
+   2026-09-22: "larger and square like on my current website"; it was a 4:5
+   upright slot at 13rem before). object-fit trims a tenth off each side and
+   keeps the full height, so nothing of the head or shoulders is lost; a hard
+   crop baked into the file would be one irreversible guess about framing. */
+.portrait{display:block;width:9.5rem;border-radius:var(--radius);
  overflow:hidden;background:var(--c-bg-sunk)}
-.portrait img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;
- object-position:48% 46%}
-@media (min-width:52rem){.portrait{width:13rem}}
-.biophoto{width:8rem;margin-bottom:var(--space-m)}
-@media (min-width:40rem){.biophoto{width:12rem}}
+.portrait img{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;
+ object-position:48% 50%}
+@media (min-width:52rem){.portrait{width:17rem}}
+.biophoto{width:9.5rem;margin-bottom:var(--space-m)}
+@media (min-width:40rem){.biophoto{width:15rem}}
 
 /* B5. Button row. Four identical outlined buttons since 2026-09-22 (author
    ruling): no dominant action, no filled button anywhere on the site. */
@@ -691,20 +697,14 @@ main{display:block}
    bitmap of a wordmark is a network request that says the same thing. */
 .footer{background:var(--c-band);color:var(--c-band-ink);
  padding:var(--space-xl) 0}
+/* One column since review round 6 (2026-09-22): the links column is gone. */
 .footer .wrap{display:grid;gap:var(--space-m)}
-@media (min-width:48rem){
-  .footer .wrap{grid-template-columns:minmax(0,1fr) auto;
-   align-items:start;gap:var(--space-2xl)}
-}
 .footer .fname{font-weight:var(--weight-bold)}
 .footer .frole{margin-top:var(--space-3xs);font-size:var(--t-small);
  color:var(--c-band-muted);max-width:var(--measure)}
 .footer .fmeta{margin-top:var(--space-2xs);font-family:var(--font-meta);
  font-size:var(--t-meta);color:var(--c-band-muted)}
 .footer .fmeta a{color:var(--c-band-ink);text-underline-offset:.15em}
-.footer nav{display:flex;flex-wrap:wrap;gap:var(--space-2xs) var(--space-m);
- font-family:var(--font-meta);font-size:var(--t-meta)}
-.footer nav a{color:var(--c-band-accent);text-underline-offset:.15em}
 .footer a:hover{color:var(--c-band-accent)}
 
 /* B13. 404. Short by design: it exists to get the reader to one of five
@@ -741,7 +741,7 @@ main{display:block}
   .t2-body{border-left:1pt solid #999;background:none;padding:0 0 0 8pt}
   /* Furniture a sheet of paper has no use for. */
   .motif,.jumpbar,.rail,.skip,.masthead,.actions,.cta,
-  .morelink,.footer nav{display:none}
+  .morelink{display:none}
   .layout{display:block;padding:0}
   .band,.footer{background:none;color:#000;padding:0 0 12pt}
   .band .kicker,.band .olabel,.band .overview,.band .lede,.band .identity,
