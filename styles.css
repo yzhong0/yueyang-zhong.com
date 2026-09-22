@@ -201,8 +201,12 @@
   --c-band-muted: #a3acb6; /*  7.37:1 */
   --c-band-accent: #4fd1c5; /*  9.09:1 — the motif stroke */
 
-  /* Density and shape */
-  --measure: 62ch;
+  /* Density and shape.
+     --measure was 62ch until 2026-09-22 (review round 4): the author found every
+     prose block "split into too many unnecessary lines" and asked for boxes
+     wider by half. 93ch = 1.5 x 62ch; it still sits inside every column it is
+     used in, so on narrow viewports the column, not the measure, governs. */
+  --measure: 93ch;
   --entry-gap: 0; /* rows meet on a shared hairline */
   --entry-pad: var(--space-s);
   --section-gap: var(--space-2xl);
@@ -378,8 +382,8 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--font-body);
 .topicshead{font-family:var(--font-meta);font-size:var(--t-micro);
  letter-spacing:var(--ls-micro);text-transform:uppercase;color:var(--c-ink-muted);
  margin-top:var(--space-l)}
-/* The (i)-(iv) numerals are set by hand, so the <ol> must not add its own
-   marker on top; the column is sized for the widest numeral, "(iii)". */
+/* The (I)-(IV) numerals are set by hand, so the <ol> must not add its own
+   marker on top; the column is sized for the widest numeral, "(III)". */
 .topics{margin-top:var(--space-xs);display:grid;gap:var(--space-xs);
  list-style:none;padding:0}
 .topics li{display:grid;grid-template-columns:3.1rem 1fr;column-gap:.35em;
@@ -520,7 +524,8 @@ main{display:block}
    gap:var(--space-s)}
   .rk{margin-bottom:0;padding-top:.15em}
 }
-.rv{max-width:var(--measure)}
+/* No max-width on the value column (review round 4): a position or degree
+   should sit on one line where the row has room for it. */
 .rv>p:first-child{font-size:var(--t-body)}
 .sub{font-size:var(--t-small);color:var(--c-ink-muted);
  margin-top:var(--space-3xs)}
@@ -552,7 +557,12 @@ main{display:block}
 .herogrid{display:grid;gap:var(--space-l);align-items:start}
 @media (min-width:52rem){
   .herogrid{grid-template-columns:minmax(0,1fr) 13rem;gap:var(--space-2xl);
-   align-items:center}
+   align-items:start}
+  /* Home only (the portrait follows the text <div>; on /bio/ it follows the
+     lede <p>). The author asked for the top of the picture to line up with
+     the top of her name, so the offset is the h1's own top margin plus the
+     gap between the line box and the cap height at display size. */
+  .herogrid>div+.portrait{margin-top:calc(var(--space-3xs) + .17 * var(--t-display))}
 }
 .band .herogrid h1{margin-top:var(--space-3xs)}
 .band .affil{margin-top:var(--space-2xs);font-size:var(--t-body);
