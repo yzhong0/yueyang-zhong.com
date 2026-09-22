@@ -193,11 +193,13 @@
   --c-state-published: #0a5f5a; /*  7.51:1 on --c-card */
   --c-state-review: #8a4b00; /*  6.80:1 on --c-card */
 
-  /* Dark hero band */
-  --c-band: #0d1117;
-  --c-band-ink: #e8ebee; /* 15.81:1 on --c-band */
-  --c-band-muted: #a3acb6; /*  8.23:1 */
-  --c-band-accent: #4fd1c5; /* 10.15:1 — the motif stroke */
+  /* Dark hero band. LBS navy (PMS 282 C, RGB 0 26 71) since 2026-09-22 by the
+     author's ruling, replacing the near-black #0d1117; the three inks on it
+     were re-measured by _design/contrast.py and all stay above AA. */
+  --c-band: #001a47;
+  --c-band-ink: #e8ebee; /* 14.17:1 on --c-band */
+  --c-band-muted: #a3acb6; /*  7.37:1 */
+  --c-band-accent: #4fd1c5; /*  9.09:1 — the motif stroke */
 
   /* Density and shape */
   --measure: 62ch;
@@ -303,7 +305,12 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--font-body);
 .band .kicker{font-family:var(--font-meta);font-size:var(--t-micro);
  letter-spacing:var(--ls-micro);text-transform:uppercase;
  color:var(--c-band-accent);margin-bottom:var(--space-xs)}
-.band .overview{max-width:var(--measure);margin-top:var(--space-m);
+/* The label above the statement ("Research interest"), set like the kicker but
+   in the muted band colour so the accent kicker stays the single signal. */
+.band .olabel{font-family:var(--font-meta);font-size:var(--t-micro);
+ letter-spacing:var(--ls-micro);text-transform:uppercase;
+ color:var(--c-band-muted);margin-top:var(--space-m)}
+.band .overview{max-width:var(--measure);margin-top:var(--space-2xs);
  color:var(--c-band-muted);font-size:var(--t-body)}
 /* Review round 1 deleted the hero totals line and the motif caption. The
    caption used to supply the band's bottom padding, so the motif carries it
@@ -351,10 +358,37 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--font-body);
 .jb-num{font-family:var(--font-meta);color:var(--c-accent);
  font-weight:var(--weight-bold)}
 .jb-name{flex:1}
-.jb-count{font-family:var(--font-meta);color:var(--c-ink-muted);
- font-variant-numeric:tabular-nums}
+/* No paper count in the rail since 2026-09-22 (author ruling). */
 .legend{margin-top:var(--space-m);font-size:var(--t-micro);
  color:var(--c-ink-muted);line-height:1.5}
+
+/* The Methodology / Application pairs and the Topics list that open the
+   column (2026-09-22). Same vocabulary as the entries: mono for labels,
+   hairline rules, one measure. */
+.rintro{margin-bottom:var(--section-gap)}
+.facets{display:grid;gap:var(--space-xs)}
+.facets>div{display:grid;gap:var(--space-3xs) var(--space-m);
+ padding:var(--space-xs) 0;border-top:var(--border-hair) solid var(--c-rule)}
+.facets>div:last-child{border-bottom:var(--border-hair) solid var(--c-rule)}
+@media (min-width:40rem){.facets>div{grid-template-columns:8.5rem minmax(0,1fr)}}
+.facets dt{font-family:var(--font-meta);font-size:var(--t-micro);
+ letter-spacing:var(--ls-micro);text-transform:uppercase;color:var(--c-ink-muted);
+ padding-top:.25em}
+.facets dd{margin:0}
+.topicshead{font-family:var(--font-meta);font-size:var(--t-micro);
+ letter-spacing:var(--ls-micro);text-transform:uppercase;color:var(--c-ink-muted);
+ margin-top:var(--space-l)}
+/* The (i)-(iv) numerals are set by hand, so the <ol> must not add its own
+   marker on top; the column is sized for the widest numeral, "(iii)". */
+.topics{margin-top:var(--space-xs);display:grid;gap:var(--space-xs);
+ list-style:none;padding:0}
+.topics li{display:grid;grid-template-columns:3.1rem 1fr;column-gap:.35em;
+ align-items:baseline}
+.tnum{font-family:var(--font-meta);font-size:var(--t-meta);color:var(--c-accent);
+ font-weight:var(--weight-bold)}
+.tname{font-weight:var(--weight-bold);text-decoration:none;
+ text-underline-offset:.15em}
+.tname:hover{color:var(--c-accent);text-decoration:underline}
 
 .direction{margin-bottom:var(--section-gap)}
 .direction>header{margin-bottom:var(--space-s)}
@@ -365,8 +399,7 @@ body{background:var(--c-bg);color:var(--c-ink);font-family:var(--font-body);
  color:var(--c-accent);font-weight:var(--weight-bold);
  border:var(--border-hair) solid var(--c-accent);border-radius:var(--radius-chip);
  padding:.1em .45em;letter-spacing:.04em}
-.orienting{color:var(--c-ink-muted);font-size:var(--t-small);
- max-width:var(--measure);margin-top:var(--space-2xs)}
+/* No .orienting line under a direction heading since 2026-09-22. */
 
 .list{background:var(--c-card);border:var(--border-hair) solid var(--c-rule);
  border-radius:var(--radius);overflow:hidden}
@@ -438,10 +471,8 @@ summary:hover{background:var(--c-bg-sunk)}
 .entry:target{background:var(--c-target-tint)}
 .entry:target::before{background:var(--c-accent);width:4px}
 
-.pagetail{border-top:var(--border-hair) solid var(--c-rule);
- padding-top:var(--space-m);font-size:var(--t-small);color:var(--c-ink-muted)}
-.pagetail p+p{margin-top:var(--space-2xs)}
-.pagetail a{color:var(--c-accent)}
+/* No .pagetail since 2026-09-22: the Bio cross-link and the CV lines at the
+   foot of four pages were removed by the author. */
 
 /* ============================================================================
    PART B — home, teaching, service, bio
@@ -510,6 +541,9 @@ main{display:block}
 .subhead{font-family:var(--font-meta);font-size:var(--t-micro);
  letter-spacing:var(--ls-micro);text-transform:uppercase;
  color:var(--c-ink-muted);margin-bottom:var(--space-2xs)}
+/* The guest-AE subhead follows the two-column journal list directly; without
+   this it sits flush against the last journal's hairline. */
+.cols+.group{margin-top:var(--space-m)}
 .group+.group{margin-top:var(--space-l)}
 
 /* B4. Home hero. Text first in the DOM so the name is the first thing read on
@@ -523,7 +557,6 @@ main{display:block}
 .band .herogrid h1{margin-top:var(--space-3xs)}
 .band .affil{margin-top:var(--space-2xs);font-size:var(--t-body);
  color:var(--c-band-ink)}
-.band .affil a{color:var(--c-band-accent);text-underline-offset:.15em}
 .band .identity{max-width:var(--measure);margin-top:var(--space-m);
  color:var(--c-band-muted)}
 
@@ -539,8 +572,8 @@ main{display:block}
 .biophoto{width:8rem;margin-bottom:var(--space-m)}
 @media (min-width:40rem){.biophoto{width:12rem}}
 
-/* B5. Action row. One dominant action, the rest quiet -- the dominant one is
-   the only filled button on the site. */
+/* B5. Button row. Four identical outlined buttons since 2026-09-22 (author
+   ruling): no dominant action, no filled button anywhere on the site. */
 .actions{display:flex;flex-wrap:wrap;gap:var(--space-2xs) var(--space-s);
  margin-top:var(--space-l)}
 .actions a{display:inline-flex;align-items:center;gap:.4em;
@@ -551,19 +584,19 @@ main{display:block}
  transition:border-color var(--motion-fast) var(--ease-out),
   background var(--motion-fast) var(--ease-out)}
 .actions a:hover{border-color:var(--c-band-accent)}
-.actions a.dominant{background:var(--c-band-accent);border-color:var(--c-band-accent);
- color:var(--c-band);font-weight:var(--weight-medium)}
-.actions a.dominant:hover{background:var(--c-band-ink);border-color:var(--c-band-ink)}
 
-/* B6. Credential strip: the five places this person is verifiable, plus where
-   she is. Monospace because each item is a handle rather than a phrase. */
-.strip{display:flex;flex-wrap:wrap;gap:var(--space-2xs) var(--space-m);
+/* B6. Office and email under the buttons, each led by a 16px inline icon in
+   currentColor. Replaces the credential strip (2026-09-22). */
+.contactlines{display:grid;gap:var(--space-2xs);
  margin-top:var(--space-l);padding-top:var(--space-s);
  border-top:var(--border-hair) solid rgb(255 255 255 / .14);
  font-family:var(--font-meta);font-size:var(--t-meta);
  color:var(--c-band-muted)}
-.strip a{color:var(--c-band-ink);text-underline-offset:.15em}
-.strip a:hover{color:var(--c-band-accent)}
+.contactlines li{display:flex;gap:.6em;align-items:flex-start}
+.contactlines .ico{flex:none;width:1rem;height:1rem;margin-top:.15em;
+ fill:currentColor;color:var(--c-band-accent)}
+.contactlines a{color:var(--c-band-ink);text-underline-offset:.15em}
+.contactlines a:hover{color:var(--c-band-accent)}
 
 /* B7. Selected work on the home page. Deliberately not the research entry
    component: three papers with one sentence each, no status edge, no
@@ -607,37 +640,29 @@ main{display:block}
 .cta a{color:var(--c-accent);text-underline-offset:.15em}
 .cta a:hover{color:var(--c-accent-hover)}
 
-/* B10. Courses and students: a short heading, then metadata, then one
-   sentence. Same three-tier shape as a paper entry, without the edge. */
-.course,.topic{padding:var(--space-s) 0;
+/* B10. Courses: a short heading, then metadata, then her sentence. Same
+   three-tier shape as a paper entry, without the edge. The PhD students,
+   Methods and bio Research sections were removed on 2026-09-22, and their
+   rules (.student, .methods, .topic) with them. */
+.course{padding:var(--space-s) 0;
  border-bottom:var(--border-hair) solid var(--c-rule)}
-.course:first-child,.topic:first-of-type{
- border-top:var(--border-hair) solid var(--c-rule)}
-.course h3,.topic h3{font-size:var(--t-h3);line-height:var(--lh-h3);
+.course:first-child{border-top:var(--border-hair) solid var(--c-rule)}
+.course h3{font-size:var(--t-h3);line-height:var(--lh-h3);
  font-weight:var(--weight-medium)}
 .course .meta{margin-top:var(--space-3xs);font-family:var(--font-meta);
  font-size:var(--t-meta);color:var(--c-ink-muted);
  font-variant-numeric:tabular-nums}
-.course p:last-child,.topic p:last-child{margin-top:var(--space-2xs);
+.course p:last-child{margin-top:var(--space-2xs);
  max-width:var(--measure);font-size:var(--t-small)}
-.student{padding:var(--space-s) 0;
+/* The compact list for the Booth TA courses: title and meta on one row, no
+   description, same hairlines. */
+.courselist{border-top:var(--border-hair) solid var(--c-rule)}
+.courselist li{display:flex;flex-wrap:wrap;gap:var(--space-3xs) var(--space-m);
+ align-items:baseline;padding:var(--space-xs) 0;
  border-bottom:var(--border-hair) solid var(--c-rule)}
-.student:first-child{border-top:var(--border-hair) solid var(--c-rule)}
-.student h3{font-size:var(--t-h3);line-height:var(--lh-h3);
- font-weight:var(--weight-medium)}
-.student .meta{margin-top:var(--space-3xs);font-size:var(--t-small);
- color:var(--c-ink-muted);max-width:var(--measure)}
-.student .placement{margin-top:var(--space-2xs);font-size:var(--t-small)}
-.student .placement .sub-k{color:var(--c-accent)}
-
-/* B11. Method names. These are labels, not links, and they used to be a
-   sentence on the live site. Bordered so the row does not read as prose, at
-   the same radius the disclosure control uses. */
-.methods{display:flex;flex-wrap:wrap;gap:var(--space-2xs)}
-.methods li{font-family:var(--font-meta);font-size:var(--t-meta);
- padding:.25em .6em;border-radius:var(--radius-chip);
- border:var(--border-hair) solid var(--c-rule-strong);
- color:var(--c-ink);background:var(--c-card)}
+.courselist .ctitle{font-weight:var(--weight-medium)}
+.courselist .meta{font-family:var(--font-meta);font-size:var(--t-meta);
+ color:var(--c-ink-muted);font-variant-numeric:tabular-nums}
 
 /* B12. Footer. Text, not a logo image: the affiliation is a fact, and a
    bitmap of a wordmark is a network request that says the same thing. */
@@ -692,12 +717,12 @@ main{display:block}
   summary{display:none}
   .t2-body{border-left:1pt solid #999;background:none;padding:0 0 0 8pt}
   /* Furniture a sheet of paper has no use for. */
-  .motif,.jumpbar,.rail,.skip,.masthead,.actions,.strip,.cta,
+  .motif,.jumpbar,.rail,.skip,.masthead,.actions,.cta,
   .morelink,.footer nav{display:none}
   .layout{display:block;padding:0}
   .band,.footer{background:none;color:#000;padding:0 0 12pt}
-  .band .kicker,.band .overview,.band .lede,.band .identity,
-  .footer .frole,.footer .fmeta{color:#000}
+  .band .kicker,.band .olabel,.band .overview,.band .lede,.band .identity,
+  .contactlines,.contactlines .ico,.footer .frole,.footer .fmeta{color:#000}
   .list,.picks{border:none}
   .entry,.picks>li{break-inside:avoid;page-break-inside:avoid}
   .entry::before{display:none}
