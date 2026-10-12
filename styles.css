@@ -596,6 +596,13 @@ main{display:block}
 .herotext{width:max-content;max-width:100%}
 .herotext>:not(h1):not(.affil){width:0;min-width:100%}
 .band .identity{margin-top:var(--space-m);color:var(--c-band-muted)}
+/* The motto under the identity sentence (review round 10): set like a pull
+   quote -- italic, band ink rather than muted so it reads as her voice, and a
+   thin accent rule on the left, the same stroke colour as the hero figure. The
+   rule is decoration (the text carries the meaning), so no contrast pair. */
+.band .motto{margin-top:var(--space-s);padding-left:var(--space-s);
+  border-left:2px solid var(--c-band-accent);font-style:italic;
+  color:var(--c-band-ink)}
 .fitkicker{width:max-content;max-width:100%}
 .fitkicker>.lede{width:0;min-width:100%}
 
@@ -758,7 +765,8 @@ main{display:block}
   .layout{display:block;padding:0}
   .band,.footer{background:none;color:#000;padding:0 0 12pt}
   .band .kicker,.band .olabel,.band .overview,.band .lede,.band .identity,
-  .contactlines,.contactlines .ico,.footer .frole,.footer .fmeta{color:#000}
+  .band .motto,.contactlines,.contactlines .ico,.footer .frole,.footer .fmeta{color:#000}
+  .band .motto{border-left-color:#000}
   .list,.picks{border:none}
   .entry,.picks>li{break-inside:avoid;page-break-inside:avoid}
   .entry::before{display:none}
